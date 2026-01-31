@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 const pg = require('pg');
 
-// رجعنا للوضع الآمن: لو لايف خد من فيرسل، لو لوكل خد من الملف
+
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
