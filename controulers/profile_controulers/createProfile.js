@@ -4,10 +4,12 @@ const httpStatusText = require('../../helpers/httpstatustext');
 const asyncWrapper = require('../../midelware/asyncWrapper');
 
 const createProfile = asyncWrapper(async (req, res, next) => {
-    const {age, 
+    const {
+        age, 
         gender, 
         height, 
         current_weight, 
+        initial_weight,
         target_weight, 
         duration_days, 
         active_level, 
@@ -23,11 +25,12 @@ const createProfile = asyncWrapper(async (req, res, next) => {
     if(existingProfile) return next(appError.create("Profile exists", 400, httpStatusText.fail));
 
     const newProfile = await UserProfile.create({
-        user_id: currentUserId,
+      user_id: currentUserId,
         age, 
         gender, 
         height, 
         current_weight, 
+        initial_weight, 
         target_weight, 
         duration_days, 
         active_level, 

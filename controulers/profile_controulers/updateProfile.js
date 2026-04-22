@@ -4,7 +4,8 @@ const httpStatusText = require('../../helpers/httpstatustext');
 const asyncWrapper = require('../../midelware/asyncWrapper');
 
 const updateProfile = asyncWrapper(async (req, res, next) => {
-    const { age, 
+    const {
+        age, 
         gender, 
         height, 
         current_weight, 
@@ -13,7 +14,7 @@ const updateProfile = asyncWrapper(async (req, res, next) => {
         active_level, 
         fitness_goal, 
         experience_level, 
-        equipment } = req.body;
+        equipment} = req.body;
     const currentUserId = req.currentUser.user_id || req.currentUser.id; 
     const profile = await UserProfile.findOne({ where: { user_id: currentUserId } });
 

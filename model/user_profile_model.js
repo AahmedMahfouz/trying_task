@@ -16,7 +16,7 @@ const UserProfile = sequelize.define('user_profile', {
         allowNull: false,
     },
     gender: { 
-        type: DataTypes.ENUM('Male', 'Female'),
+        type: DataTypes.ENUM('male', 'female'),
         allowNull: false 
     },
 
@@ -24,37 +24,44 @@ const UserProfile = sequelize.define('user_profile', {
         type: DataTypes.FLOAT, 
         allowNull: false,
     },
-    weight: { 
+
+    current_weight: { 
         type: DataTypes.FLOAT, 
         allowNull: false,
     },
+
+     initial_weight: { 
+        type: DataTypes.FLOAT, 
+        allowNull: false,
+    },
+
     target_weight: { 
         type: DataTypes.FLOAT, 
         allowNull: false,
     },
-    initial_weight: { 
-        type: DataTypes.FLOAT, 
-        allowNull: false,
-    },
+   
     duration_days: { 
         type: DataTypes.INTEGER, 
         allowNull: false,
     },
 
-    goal: { 
-        type: DataTypes.ENUM('Lose Weight', 'Body Building', 'Power Lifiting' , 'Athletics'),
-        allowNull: false
-    },
     active_level: {
-        type: DataTypes.ENUM('Sedentary', 'Light', 'Moderate', 'Active', 'Very Active'), 
+        type: DataTypes.ENUM('sedentary', 'light', 'moderate', 'active', 'very active'), 
         allowNull: false
     },
+
+   fitness_goal: {
+        type: DataTypes.ENUM('lose_weight', 'bodybuilding', 'powerlifting', 'athletics'),
+        allowNull: false
+    },
+
     experience_level: {
-        type: DataTypes.ENUM('Beginner', 'Intermediate', 'Advanced'),
+        type: DataTypes.ENUM('beginner', 'intermediate', 'advanced'),
         allowNull: false,
     },
+
     equipment: {
-        type: DataTypes.ENUM('Full Gym', 'Home Gym', 'Garage Gym'),
+        type: DataTypes.ENUM('Full Gym', 'at home', 'garage Gym'),
         allowNull: false,
     }
 },
