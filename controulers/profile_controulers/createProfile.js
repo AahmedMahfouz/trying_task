@@ -4,7 +4,16 @@ const httpStatusText = require('../../helpers/httpstatustext');
 const asyncWrapper = require('../../midelware/asyncWrapper');
 
 const createProfile = asyncWrapper(async (req, res, next) => {
-    const { age, gender, height, weight, activeLevel, goal, dietary, allergies } = req.body;
+    const {age, 
+        gender, 
+        height, 
+        current_weight, 
+        target_weight, 
+        duration_days, 
+        active_level, 
+        fitness_goal, 
+        experience_level, 
+        equipment } = req.body;
     const currentUserId = req.currentUser.id || req.currentUser.user_id; 
     const userExists = await User.findByPk(currentUserId);
     
@@ -15,7 +24,16 @@ const createProfile = asyncWrapper(async (req, res, next) => {
 
     const newProfile = await UserProfile.create({
         user_id: currentUserId,
-        age, gender, height, weight, activeLevel, goal, dietary, allergies
+        age, 
+        gender, 
+        height, 
+        current_weight, 
+        target_weight, 
+        duration_days, 
+        active_level, 
+        fitness_goal, 
+        experience_level, 
+        equipment
     });
 
     res.status(201).json({

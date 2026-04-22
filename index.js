@@ -39,7 +39,7 @@ const startServer = async () => {
         // await sequelize.sync({ alter: true }); 
         // console.log('Tables created successfully');
         
-        //use to clear db
+        // use to clear db
         // await sequelize.sync({ force: true }); 
         // console.log('All tables re-created successfully');
 
