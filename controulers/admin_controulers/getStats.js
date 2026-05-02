@@ -32,4 +32,4 @@ const getStats = asyncWrapper(async (req, res, next) => {
     });
 });
 
-module.exports = getStats;
+module.exports = {getStats};
