@@ -15,7 +15,11 @@ const login = asyncWrapper(async (req, res, next) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return next(appError.create("Wrong password", 401, httpStatusText.fail));
 
-    const token = jwt.sign({ email: user.email, id: user.user_id }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign(
+        { email: user.email, id: user.user_id, role: user.role }, 
+        process.env.JWT_SECRET_KEY, 
+        { expiresIn: '1h' }
+    );
     
     const profile = await UserProfile.findOne({ where: { user_id: user.user_id } });
 
@@ -26,4 +30,4 @@ const login = asyncWrapper(async (req, res, next) => {
     });
 });
 
-module.exports=login
+module.exports = login;

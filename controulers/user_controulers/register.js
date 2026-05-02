@@ -16,12 +16,17 @@ const register = asyncWrapper(async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
-        fullname, email, password: hashedPassword
+        fullname, email, password: hashedPassword,
+        role: 'user'
     });
 
-    const token = jwt.sign({ email: newUser.email, id: newUser.user_id }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign(
+        { email: newUser.email, id: newUser.user_id, role: newUser.role }, 
+        process.env.JWT_SECRET_KEY, 
+        { expiresIn: '1h' }
+    );
 
     res.status(201).json({ status: httpStatusText.success, data: { user: newUser }, token });
 });
 
-module.exports= register
+module.exports = register;

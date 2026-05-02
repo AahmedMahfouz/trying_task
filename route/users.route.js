@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const resetPassLimiter=require("../authentication/password_auth.js")
+const verifyToken = require('../midelware/verifytoken');
+const allowedTo = require('../midelware/allowedTo');
 
 const getAllUsers = require('../controulers/user_controulers/getAllUsers');
 const register = require('../controulers/user_controulers/register');
@@ -9,8 +11,9 @@ const forgetPassword = require('../controulers/user_controulers/forgetPassword')
 const resetPassword = require('../controulers/user_controulers/resetPassword');
 
 // Get all users
-router.get('/',getAllUsers);
-
+router.get('/', verifyToken, allowedTo('admin'), getAllUsers);
+// admin can get all user information
+router.get('/admin/stats', verifyToken, allowedTo('admin'), getStats);
 // Register (Signup)
 router.post('/register',register);
 
