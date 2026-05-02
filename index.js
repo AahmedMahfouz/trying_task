@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require("cors");
-const com =require("compression")
+const com = require("compression");
 require('dotenv').config();
 const sequelize = require('./connection/db');
 const users_router = require('./route/users.route');
@@ -12,9 +12,12 @@ app.use(cors());
 app.use(com());
 app.use(express.json());
 
-// Routes
-app.use('/', users_router);
-app.use('/', userprofile_router);
+app.get('/', (req, res) => {
+    res.status(200).send("Welcome to DietMinder API - Server is Live");
+});
+
+app.use('/api', users_router);
+app.use('/api', userprofile_router);
 
 // 404 Handler
 app.all(/(.*)/, (req, res, next) => {
@@ -33,26 +36,21 @@ app.use((error, req, res, next) => {
 const startServer = async () => {
     try {
         await sequelize.authenticate();
-        console.log('Database connected && server started');
+        console.log('Database connected');
 
-        // use to creat db if there isn't
-        // await sequelize.sync({ alter: true }); 
-        // console.log('Tables created successfully');
-        
-        // use to clear db
-        // await sequelize.sync({ force: true }); 
-        // console.log('All tables re-created successfully');
+        await sequelize.sync({ alter: true }); 
+        console.log('Tables updated/created successfully');
 
-        app.listen(process.env.PORT || 5000, () => {
-            console.log(`server listen on port ${process.env.PORT}`);
-            
+        const PORT = process.env.PORT || 5000;
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
         });
 
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Database Connection Error:', error);
     }
 };
 
 startServer();
-//
-module.exports=app;
+
+module.exports = app;
