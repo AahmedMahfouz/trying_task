@@ -4,8 +4,10 @@ const asyncWrapper = require('../../midelware/asyncWrapper');
 const httpStatusText = require('../../helpers/httpstatustext');
 
 const getStats = asyncWrapper(async (req, res, next) => {
+    // count user
     const totalUsers = await User.count();
 
+    // distribution goal
     const goalDistribution = await UserProfile.findAll({
         attributes: [
             'fitness_goal',
@@ -14,11 +16,16 @@ const getStats = asyncWrapper(async (req, res, next) => {
         group: ['fitness_goal']
     });
 
-    const avgWeight = await UserProfile.findAll({
+    // avgweightresult
+    const avgWeightResult = await UserProfile.findAll({
         attributes: [
             [Sequelize.fn('AVG', Sequelize.col('current_weight')), 'average_weight']
-        ]
+        ],
+        raw: true
     });
+
+    const rawAvg = avgWeightResult[0]?.average_weight;
+    const finalAvgWeight = rawAvg ? parseFloat(rawAvg).toFixed(2) : "0.00";
 
     res.status(200).json({
         status: httpStatusText.success,
@@ -26,10 +33,10 @@ const getStats = asyncWrapper(async (req, res, next) => {
             stats: {
                 total_users: totalUsers,
                 goals: goalDistribution,
-                average_weight: parseFloat(avgWeight[0].dataValues.average_weight).toFixed(2)
+                average_weight: finalAvgWeight
             }
         }
     });
 });
 
-module.exports = {getStats};
+module.exports = { getStats };
