@@ -11,6 +11,7 @@ const getUserDetailsForAdmin = asyncWrapper(async (req, res, next) => {
         include: [
             {
                 model: UserProfile,
+                as: 'profile'
             },
             { 
                 model: WeightHistory, 
