@@ -11,7 +11,7 @@ router.post('/addProfile', verifyToken, creatProfile);
 
 router.get('/getProfile', verifyToken, getMyProfile);
 
-router.get('/getAllprofile', getAllProfiles);
+router.get('/getAllprofile', verifyToken, allowedTo('admin'), getAllProfiles);
 
 router.patch('/updateProfile', verifyToken, updateProfile);
 
