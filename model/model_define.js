@@ -20,7 +20,13 @@ User.hasMany(VerificationCode, {
 VerificationCode.belongsTo(User, { 
     foreignKey: 'user_id' 
 });
-
+User.hasMany(WeightHistory, { 
+    foreignKey: 'user_id', 
+    as: 'weightLogs' 
+});
+WeightHistory.belongsTo(User, { 
+    foreignKey: 'user_id' 
+});
 UserProfile.hasMany(WeightHistory, { 
     foreignKey: 'user_id', 
     sourceKey: 'user_id', 
