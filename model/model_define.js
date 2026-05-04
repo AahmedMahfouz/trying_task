@@ -1,6 +1,8 @@
 const User = require('./users_model');
 const UserProfile = require('./user_profile_model');
 const VerificationCode = require('./verification_code_model');
+const WeightHistory = require('./weight_history.js');
+
 // one user has one profile
 User.hasOne(UserProfile, { 
     foreignKey: 'user_id', 
@@ -18,9 +20,12 @@ User.hasMany(VerificationCode, {
 VerificationCode.belongsTo(User, { 
     foreignKey: 'user_id' 
 });
+User.hasMany(WeightHistory, { foreignKey: 'user_id', as: 'weightLogs' });
+WeightHistory.belongsTo(User, { foreignKey: 'user_id' });
 
 module.exports = {
     User,
     UserProfile,
-    VerificationCode
+    VerificationCode,
+    WeightHistory
 };

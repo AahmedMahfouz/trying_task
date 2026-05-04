@@ -1,4 +1,4 @@
-const { UserProfile, User } = require('../../model/model_define'); 
+const { UserProfile, User, WeightHistory } = require('../../model/model_define'); // تأكد من استيراد WeightHistory
 const appError = require('../../helpers/appError');
 const httpStatusText = require('../../helpers/httpstatustext');
 const asyncWrapper = require('../../midelware/asyncWrapper');
@@ -14,7 +14,9 @@ const updateProfile = asyncWrapper(async (req, res, next) => {
         active_level, 
         fitness_goal, 
         experience_level, 
-        equipment} = req.body;
+        equipment
+    } = req.body;
+
     const currentUserId = req.currentUser.user_id || req.currentUser.id; 
     const profile = await UserProfile.findOne({ where: { user_id: currentUserId } });
 
@@ -35,10 +37,21 @@ const updateProfile = asyncWrapper(async (req, res, next) => {
         equipment
     });
 
+    if (current_weight) {
+        await WeightHistory.create({
+            weight: current_weight,
+            user_id: currentUserId,
+            recorded_at: new Date()
+        });
+    }
+
     res.status(200).json({
         status: httpStatusText.success,
-        data: { profile }
+        data: { 
+            profile,
+            message: "Profile updated and weight logged in history" 
+        }
     });
 });
 
-module.exports=updateProfile
+module.exports = updateProfile;
