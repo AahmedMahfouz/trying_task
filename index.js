@@ -5,6 +5,7 @@ require('dotenv').config();
 const sequelize = require('./connection/db');
 const users_router = require('./route/users.route');
 const userprofile_router = require('./route/user_profile_route');
+const admin_routes = require('./route/admin_routes');
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 // Routes
 app.use('/', users_router);
 app.use('/', userprofile_router);
+app.use('/', admin_routes);
 
 // 404 Handler
 app.all(/(.*)/, (req, res, next) => {
