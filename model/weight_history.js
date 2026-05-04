@@ -7,6 +7,10 @@ const WeightHistory = sequelize.define('weight_history', {
         primaryKey: true,
         autoIncrement: true
     },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     weight: {
         type: DataTypes.FLOAT,
         allowNull: false

@@ -6,7 +6,6 @@ const asyncWrapper = require('../../midelware/asyncWrapper');
 const updateProfile = asyncWrapper(async (req, res, next) => {
     const {
         age, 
-        gender, 
         height, 
         current_weight, 
         target_weight, 
@@ -25,8 +24,7 @@ const updateProfile = asyncWrapper(async (req, res, next) => {
     }
 
     await profile.update({
-        age, 
-        gender, 
+        age,  
         height, 
         current_weight, 
         target_weight, 
