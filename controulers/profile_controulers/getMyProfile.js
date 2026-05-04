@@ -1,4 +1,4 @@
-const { UserProfile, User } = require('../../model/model_define'); 
+const { UserProfile, User , WeightHistory} = require('../../model/model_define'); 
 const appError = require('../../helpers/appError');
 const httpStatusText = require('../../helpers/httpstatustext');
 const asyncWrapper = require('../../midelware/asyncWrapper');
@@ -11,6 +11,11 @@ const getMyProfile = asyncWrapper(async (req, res, next) => {
         include: [{
             model: User, 
             attributes: ['user_id', 'fullname', 'email']
+        },{
+            model: WeightHistory,
+            as: 'weightLogs',
+            attributes: ['weight', 'recorded_at'],
+            order: [['recorded_at', 'ASC']]
         }]
     }); 
 

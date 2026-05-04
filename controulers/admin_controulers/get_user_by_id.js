@@ -1,4 +1,4 @@
-const { User, UserProfile } = require('../../model/model_define');
+const { User, UserProfile, WeightHistory } = require('../../model/model_define');
 const asyncWrapper = require('../../midelware/asyncWrapper');
 
 const getUserDetailsForAdmin = asyncWrapper(async (req, res, next) => {
@@ -10,7 +10,13 @@ const getUserDetailsForAdmin = asyncWrapper(async (req, res, next) => {
             {
                 model: UserProfile,
                 as: 'profile'
-            }
+            },
+        { 
+            model: WeightHistory, 
+            as: 'weightLogs',
+            limit: 10, 
+            order: [['recorded_at', 'DESC']] 
+        }
         ]
     });
 
