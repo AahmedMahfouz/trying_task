@@ -10,7 +10,6 @@ const getMyProfile = asyncWrapper(async (req, res, next) => {
         where: { user_id: currentUserId },
         include: [{
             model: User,
-            as: 'user', 
             attributes: ['user_id', 'fullname', 'email']
         }]
     }); 
@@ -22,8 +21,8 @@ const getMyProfile = asyncWrapper(async (req, res, next) => {
         data: { 
             account: {
                 user_id: profile.user_id,
-                fullName: profile.User.fullname,
-                email: profile.User.email
+                fullName: profile.User?.fullname,
+                email: profile.User?.email
             },   
             Profile: {
                 profile_id: profile.profile_id,

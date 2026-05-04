@@ -10,8 +10,7 @@ User.hasOne(UserProfile, {
     as: 'profile'
 });
 UserProfile.belongsTo(User, { 
-    foreignKey: 'user_id',
-    as: 'user' 
+    foreignKey: 'user_id', 
 });
 // one user has many code
 User.hasMany(VerificationCode, { 
