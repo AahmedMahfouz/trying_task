@@ -15,7 +15,7 @@ const getUserDetailsForAdmin = asyncWrapper(async (req, res, next) => {
             },
             { 
                 model: WeightHistory,
-                as:'weight_history', 
+                as: 'weightLogs', 
                 order: [['recorded_at', 'ASC']] 
                         }
         ]
