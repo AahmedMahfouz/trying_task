@@ -9,7 +9,8 @@ const getMyProfile = asyncWrapper(async (req, res, next) => {
     const profile = await UserProfile.findOne({ 
         where: { user_id: currentUserId },
         include: [{
-            model: User, 
+            model: User,
+            as: 'user', 
             attributes: ['user_id', 'fullname', 'email']
         }]
     }); 
