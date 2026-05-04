@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const resetPassLimiter=require("../authentication/password_auth.js")
 const { getStats } = require('../controulers/admin_controulers/getStats');
-const { getUserDetailsForAdmin } = require('../controulers/admin_controulers/get_user_by_id.js/index.js');
+const { getUserDetailsForAdmin } = require('../controulers/admin_controulers/get_user_by_id.js');
 const verifyToken = require('../midelware/verifytoken');
 const allowedTo = require('../midelware/allowedTo');
 
