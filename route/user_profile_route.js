@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const verifyToken = require('../midelware/verifytoken');
+const allowedTo = require('../midelware/allowedTo');
 
 const creatProfile = require('../controulers/profile_controulers/createProfile');
 const getMyProfile = require('../controulers/profile_controulers/getMyProfile');
@@ -11,7 +12,7 @@ router.post('/addProfile', verifyToken, creatProfile);
 
 router.get('/getProfile', verifyToken, getMyProfile);
 
-router.get('/getAllprofile', verifyToken, allowedTo('admin'), getAllProfiles);
+router.get('/getAllprofile', verifyToken , allowedTo('admin'), getAllProfiles);
 
 router.patch('/updateProfile', verifyToken, updateProfile);
 
