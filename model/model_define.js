@@ -2,6 +2,7 @@ const User = require('./users_model');
 const UserProfile = require('./user_profile_model');
 const VerificationCode = require('./verification_code_model');
 const WeightHistory = require('./weight_history.js');
+const BlacklistedToken = require('./BlacklistedToken.js')
 
 // one user has one profile
 User.hasOne(UserProfile, { 
@@ -43,5 +44,6 @@ module.exports = {
     User,
     UserProfile,
     VerificationCode,
-    WeightHistory
+    WeightHistory,
+    BlacklistedToken
 };

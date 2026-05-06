@@ -6,6 +6,7 @@ const verifyToken = require('../midelware/verifytoken');
 
 const register = require('../controulers/user_controulers/register');
 const login = require('../controulers/user_controulers/login');
+const logout = require('../controulers/user_controulers/logout.js');
 const forgetPassword = require('../controulers/user_controulers/forgetPassword');
 const resetPassword = require('../controulers/user_controulers/resetPassword');
 
@@ -16,6 +17,9 @@ router.post('/register',register);
 
 // Login
 router.post('/login',login);
+
+// logout
+router.post('/logout', verifyToken, logout)
 
 // Forget Password
 router.post('/forget-password',resetPassLimiter.requestOtpLimiter,forgetPassword);
