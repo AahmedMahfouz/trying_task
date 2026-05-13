@@ -7,7 +7,7 @@ const getUserDetailsForAdmin = asyncWrapper(async (req, res, next) => {
     const userId = req.params.id;
 
     const user = await User.findByPk(userId, {
-        attributes: { exclude: ['password'] }, 
+        attributes: { exclude: ['password' , 'duration_days'] }, 
         include: [
             {
                 model: UserProfile,
@@ -33,7 +33,6 @@ const getUserDetailsForAdmin = asyncWrapper(async (req, res, next) => {
                 initialWeight: user.profile?.initial_weight || "Not set",
                 currentWeight: user.profile?.current_weight || "Not set",
                 targetWeight: user.profile?.target_weight || "Not set",
-                duration: user.profile?.duration_days || 0,
                 totalWeightEntries: user.weightLogs ? user.weightLogs.length : 0
             }
         }
