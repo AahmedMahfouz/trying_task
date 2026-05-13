@@ -30,14 +30,15 @@ const getUserDetailsForAdmin = asyncWrapper(async (req, res, next) => {
     const totalLost = (initialWeight && currentWeight) ? (initialWeight - currentWeight).toFixed(2) : 0;
 
     res.status(200).json({
-        status: httpStatusText.success,
-        data: { 
-            user,
-            progressSummary: {
-                totalLost,
-                totalLogs: user.weight_histories ? user.weight_histories.length : 0
+            status: httpStatusText.success,
+            data: {
+                chartData: weightLogs,
+                summary: {
+                    started_at: profile.initial_weight,
+                    currently_at: profile.current_weight,
+                    aiming_for: profile.target_weight
+                }
             }
-        }
     });
 });
 
