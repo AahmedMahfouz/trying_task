@@ -9,7 +9,7 @@ const getUserProgress = asyncWrapper(async (req, res, next) => {
     const weightLogs = await WeightHistory.findAll({
         where: { user_id: currentUserId },
         attributes: ['weight', 'recorded_at'],
-        order: [['recorded_at', 'ASC']]
+        order: [['recorded_at', 'ASC']] 
     });
 
     const profile = await UserProfile.findOne({
@@ -18,20 +18,17 @@ const getUserProgress = asyncWrapper(async (req, res, next) => {
     });
 
     if (!profile) {
-        return next(appError.create("there is no pofile to show progress", 404, httpStatusText.fail));
+        return next(appError.create("No profile found", 404, httpStatusText.fail));
     }
-
-    const totalLost = (profile.initial_weight - profile.current_weight).toFixed(2);
 
     res.status(200).json({
         status: httpStatusText.success,
         data: {
-            logs: weightLogs,
+            chartData: weightLogs,
             summary: {
-                start_weight: profile.initial_weight,
-                current_weight: profile.current_weight,
-                target_weight: profile.target_weight,
-                total_lost: totalLost
+                started_at: profile.initial_weight,
+                currently_at: profile.current_weight,
+                aiming_for: profile.target_weight
             }
         }
     });
