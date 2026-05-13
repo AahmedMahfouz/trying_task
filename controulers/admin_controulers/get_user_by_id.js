@@ -11,34 +11,32 @@ const getUserDetailsForAdmin = asyncWrapper(async (req, res, next) => {
         include: [
             {
                 model: UserProfile,
-                as: 'profile'
+                as: 'profile' 
             },
             { 
                 model: WeightHistory,
-                as: 'weightLogs', 
-                order: [['recorded_at', 'ASC']] 
-                        }
-        ]
+                as: 'weightLogs' 
+            }
+        ],
+        order: [[ { model: WeightHistory, as: 'weightLogs' }, 'recorded_at', 'DESC']]
     });
 
     if (!user) {
         return next(appError.create("User not found", 404, httpStatusText.fail));
     }
 
-    const initialWeight = user.user_profile?.initial_weight;
-    const currentWeight = user.user_profile?.current_weight;
-    const totalLost = (initialWeight && currentWeight) ? (initialWeight - currentWeight).toFixed(2) : 0;
-
     res.status(200).json({
-            status: httpStatusText.success,
-            data: {
-                chartData: weightLogs,
-                summary: {
-                    started_at: profile.initial_weight,
-                    currently_at: profile.current_weight,
-                    aiming_for: profile.target_weight
-                }
+        status: httpStatusText.success,
+        data: { 
+            user,
+            summary: {
+                initialWeight: user.profile?.initial_weight || "Not set",
+                currentWeight: user.profile?.current_weight || "Not set",
+                targetWeight: user.profile?.target_weight || "Not set",
+                duration: user.profile?.duration_days || 0,
+                totalWeightEntries: user.weightLogs ? user.weightLogs.length : 0
             }
+        }
     });
 });
 
