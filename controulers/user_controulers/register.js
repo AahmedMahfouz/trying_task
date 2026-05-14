@@ -6,7 +6,7 @@ const httpStatusText = require('../../helpers/httpstatustext');
 const asyncWrapper = require('../../midelware/asyncWrapper');
 
 const register = asyncWrapper(async (req, res, next) => {
-    const { name, email, password, confirmPassword } = req.body;
+    const { fullname, email, password, confirmPassword } = req.body;
     
     if (password !== confirmPassword) return next(appError.create("Passwords mismatch", 400, httpStatusText.fail));
 
@@ -16,7 +16,7 @@ const register = asyncWrapper(async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
-        name, email, password: hashedPassword,
+        fullname, email, password: hashedPassword,
         role: 'user'
     });
 
