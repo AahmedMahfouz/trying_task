@@ -12,7 +12,7 @@ const { Model } = require('sequelize');
 
 
 // Get all users
-router.get('/getalluser', verifyToken, allowedTo('admin'), getAllUsers);
+router.get('/getalluser', verifyToken, allowedTo('ADMIN'), getAllUsers);
 // Get all profiles
 router.get('/getAllprofile', verifyToken , allowedTo('admin'), getAllProfiles);
 // admin can get all user information
