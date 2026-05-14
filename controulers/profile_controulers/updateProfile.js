@@ -34,7 +34,8 @@ const updateProfile = asyncWrapper(async (req, res, next) => {
         active_level, 
         fitness_goal, 
         experience_level, 
-        equipment
+        equipment,
+        recorded_at: today
     });
 
     if (current_weight) {
