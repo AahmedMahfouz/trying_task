@@ -16,11 +16,12 @@ const WeightHistory = sequelize.define('weight_history', {
         allowNull: false
     },
     recorded_at: {
-        type: DataTypes.STRING, 
-        allowNull: true
+    type: DataTypes.DATEONLY, 
+    allowNull: false,
+    defaultValue: DataTypes.NOW 
     }
 }, { 
-    timestamps: true,
+    timestamps: false,
     tableName: 'weight_histories' 
 });
 
