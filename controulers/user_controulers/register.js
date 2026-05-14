@@ -16,7 +16,9 @@ const register = asyncWrapper(async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
-        fullname, email, password: hashedPassword,
+        fullname:fullname, 
+        email, 
+        password: hashedPassword,
         role: 'user'
     });
 
