@@ -26,7 +26,7 @@ const User = sequelize.define('users', {
     },
     role: {
         type: DataTypes.STRING,
-        defaultValue: 'user',
+        defaultValue: 'USER',
         allowNull: false
     },
     banned: {
@@ -35,7 +35,7 @@ const User = sequelize.define('users', {
     }
 }, {
     tableName: 'users',
-   timestamps:true 
+   timestamps: false
     
 });
 

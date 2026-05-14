@@ -19,7 +19,7 @@ const register = asyncWrapper(async (req, res, next) => {
         fullname:fullname, 
         email, 
         password: hashedPassword,
-        role: 'user'
+        role: 'USER'
     });
 
     const token = jwt.sign(
