@@ -27,6 +27,10 @@ const User = sequelize.define('users', {
         type: DataTypes.ENUM('user', 'admin'),
         defaultValue: 'user',
         allowNull: false
+    },
+    banned: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true
     }
 }, {
     tableName: 'users', 

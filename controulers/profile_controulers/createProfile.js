@@ -23,6 +23,8 @@ const createProfile = asyncWrapper(async (req, res, next) => {
     const existingProfile = await UserProfile.findOne({ where: { user_id: currentUserId } });
     if(existingProfile) return next(appError.create("Profile exists", 400, httpStatusText.fail));
 
+
+
     const newProfile = await UserProfile.create({
       user_id: currentUserId,
         age, 
@@ -30,7 +32,7 @@ const createProfile = asyncWrapper(async (req, res, next) => {
         height, 
         current_weight, 
         initial_weight:current_weight, 
-        target_weight, 
+        target_weight,
         duration_days, 
         active_level, 
         fitness_goal, 
