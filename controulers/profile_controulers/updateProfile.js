@@ -23,7 +23,8 @@ const updateProfile = asyncWrapper(async (req, res, next) => {
     if (!profile) {
         return next(appError.create("Profile not found", 404, httpStatusText.fail));
     }
-
+    const today = new Date().toISOString().split('T')[0];
+    
     await profile.update({
         age,
         gender,  
@@ -35,7 +36,7 @@ const updateProfile = asyncWrapper(async (req, res, next) => {
         fitness_goal, 
         experience_level, 
         equipment,
-        recorded_at: {today}
+        recorded_at: today
     });
 
     if (current_weight) {
