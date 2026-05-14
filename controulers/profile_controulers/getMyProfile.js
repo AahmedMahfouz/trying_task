@@ -32,6 +32,8 @@ const getMyProfile = asyncWrapper(async (req, res, next) => {
                 initial_weight: profile.initial_weight,
                 current_weight: profile.current_weight,
                 target_weight: profile.target_weight,
+                bmr:profile.bmr,
+                bmi:profile.bmi,
                 // duration_days: profile.duration_days,
                 active_level: profile.active_level,
                 fitness_goal: profile.fitness_goal,
