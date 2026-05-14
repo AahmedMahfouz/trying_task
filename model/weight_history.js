@@ -20,7 +20,7 @@ const WeightHistory = sequelize.define('weight_history', {
         allowNull: true
     }
 }, { 
-    timestamps: false,
+    timestamps: true,
     tableName: 'weight_histories' 
 });
 
