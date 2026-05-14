@@ -14,10 +14,10 @@ const { Model } = require('sequelize');
 // Get all users
 router.get('/getalluser', verifyToken, allowedTo('ADMIN'), getAllUsers);
 // Get all profiles
-router.get('/getAllprofile', verifyToken , allowedTo('admin'), getAllProfiles);
+router.get('/getAllprofile', verifyToken , allowedTo('ADMIN'), getAllProfiles);
 // admin can get all user information
-router.get('/admin/getstats', verifyToken, allowedTo('admin'), getStats);
+router.get('/admin/getstats', verifyToken, allowedTo('ADMIN'), getStats);
 //admin get user informatio
-router.get('/admin/user/:id', verifyToken, allowedTo('admin'), getUserDetailsForAdmin);
+router.get('/admin/user/:id', verifyToken, allowedTo('ADMIN'), getUserDetailsForAdmin);
 
 module.exports = router;
