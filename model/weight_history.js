@@ -16,8 +16,8 @@ const WeightHistory = sequelize.define('weight_history', {
         allowNull: false
     },
     recorded_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
+        type: DataTypes.STRING, 
+        allowNull: true
     }
 }, { 
     timestamps: false,

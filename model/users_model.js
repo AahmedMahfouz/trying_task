@@ -7,9 +7,9 @@ const User = sequelize.define('users', {
         primaryKey: true,
         autoIncrement: true 
     },
-    fullname: {
+    name: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     email: {
         type: DataTypes.STRING,
@@ -24,7 +24,7 @@ const User = sequelize.define('users', {
         allowNull: false
     },
     role: {
-        type: DataTypes.ENUM('user', 'admin'),
+        type: DataTypes.STRING,
         defaultValue: 'user',
         allowNull: false
     },
@@ -33,7 +33,8 @@ const User = sequelize.define('users', {
         allowNull: true
     }
 }, {
-    tableName: 'users', 
+    tableName: 'users',
+   timestamps: false  
     
 });
 
