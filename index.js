@@ -44,7 +44,7 @@ const startServer = async () => {
         // use to clear db
         // await sequelize.sync({ force: true }); 
         // console.log('All tables re-created successfully');
-
+        
         app.listen(process.env.PORT || 5000, () => {
             console.log(`server listen on port ${process.env.PORT}`);
             
