@@ -41,11 +41,11 @@ const UserProfile = sequelize.define('user_profile', {
     },
     bmi: { 
         type: DataTypes.FLOAT, 
-        allowNull: false,
+        allowNull: true,
     },
     bmr: { 
         type: DataTypes.FLOAT, 
-        allowNull: false,
+        allowNull: true,
     },
     duration_days: { 
         type: DataTypes.INTEGER, 
