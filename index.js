@@ -38,8 +38,8 @@ const startServer = async () => {
         console.log('Database connected && server started');
 
         // use to creat db if there isn't
-        await sequelize.sync({ alter: true }); 
-        console.log('Tables created successfully');
+        // await sequelize.sync({ alter: true }); 
+        // console.log('Tables created successfully');
         
         // use to clear db
         // await sequelize.sync({ force: true }); 
