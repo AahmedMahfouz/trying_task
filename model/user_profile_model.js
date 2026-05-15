@@ -47,11 +47,7 @@ const UserProfile = sequelize.define('user_profile', {
         type: DataTypes.FLOAT, 
         allowNull: true,
     },
-    duration_days: { 
-        type: DataTypes.INTEGER, 
-        allowNull: false,
-    },
-
+    
     active_level: {
         type: DataTypes.ENUM('sedentary', 'light', 'moderate', 'active', 'very active'), 
         allowNull: false
