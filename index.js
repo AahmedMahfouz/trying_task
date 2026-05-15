@@ -6,12 +6,16 @@ const sequelize = require('./connection/db');
 const users_router = require('./route/users.route');
 const userprofile_router = require('./route/user_profile_route');
 const admin_routes = require('./route/admin_routes');
+const convertToUpperCase = require('./midelware/converTOupercas');
 
 const app = express();
 
 app.use(cors());
 app.use(com());
 app.use(express.json());
+
+//to conver all strings request to uper except email $ pass
+app.use(convertToUpperCase);
 
 // Routes
 app.use('/', users_router);

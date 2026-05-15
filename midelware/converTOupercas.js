@@ -1,4 +1,4 @@
-app.use((req, res, next) => {
+const convertToUpperCase = (req, res, next) => {
     if (req.body) {
         for (let key in req.body) {
             if (key === 'email' || key === 'password') continue;
@@ -9,4 +9,6 @@ app.use((req, res, next) => {
         }
     }
     next();
-});
+};
+
+module.exports = convertToUpperCase;
