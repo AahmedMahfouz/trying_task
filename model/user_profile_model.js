@@ -16,7 +16,7 @@ const UserProfile = sequelize.define('user_profile', {
         allowNull: false,
     },
     gender: { 
-        type: DataTypes.ENUM('male', 'female'),
+        type: DataTypes.STRING,
         allowNull: false 
     },
 
@@ -49,22 +49,22 @@ const UserProfile = sequelize.define('user_profile', {
     },
     
     active_level: {
-        type: DataTypes.ENUM('sedentary', 'light', 'moderate', 'active', 'very active'), 
+        type: DataTypes.STRING, 
         allowNull: false
     },
 
    fitness_goal: {
-        type: DataTypes.ENUM('lose_weight', 'bodybuilding', 'powerlifting', 'athletics'),
+        type: DataTypes.STRING,
         allowNull: false
     },
 
     experience_level: {
-        type: DataTypes.ENUM('beginner', 'intermediate', 'advanced'),
+        type: DataTypes.STRING,
         allowNull: false,
     },
 
     equipment: {
-        type: DataTypes.ENUM('Full Gym', 'at home', 'garage Gym'),
+        type: DataTypes.STRING,
         allowNull: false,
     }
 },
