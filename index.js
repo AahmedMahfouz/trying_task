@@ -50,7 +50,7 @@ const startServer = async () => {
         // console.log('All tables re-created successfully');
         
         app.listen(process.env.PORT || 5000, () => {
-            console.log(`server listen on port ${process.env.PORT}`);
+            console.log(` server listen on port ${process.env.PORT}`);
             
         });
 
