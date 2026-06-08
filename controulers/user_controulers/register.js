@@ -23,7 +23,7 @@ const register = asyncWrapper(async (req, res, next) => {
         email: emailInput,
         validateRegex: true,
         validateMx: true,           
-        validateSmtp: true,         
+        validateSmtp: false,         
         validateDisposable: true  
     });
 
