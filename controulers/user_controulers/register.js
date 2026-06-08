@@ -1,4 +1,4 @@
-const{User}=require("../../model/model_define")
+const { User } = require("../../model/model_define");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const appError = require('../../helpers/appError');
@@ -8,7 +8,18 @@ const asyncWrapper = require('../../midelware/asyncWrapper');
 const register = asyncWrapper(async (req, res, next) => {
     const { fullname, email, password, confirmPassword } = req.body;
     
-    if (password !== confirmPassword) return next(appError.create("Passwords mismatch", 400, httpStatusText.fail));
+    if (password !== confirmPassword) {
+        return next(appError.create("Passwords mismatch", 400, httpStatusText.fail));
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+        return next(appError.create(
+            "Password must be at least 8 characters long, include uppercase and lowercase letters, a number, and a special character", 
+            400, 
+            httpStatusText.fail
+        ));
+    }
 
     const oldUser = await User.findOne({ where: { email } });
     if (oldUser) return next(appError.create("Email already exists", 400, httpStatusText.fail));
@@ -16,7 +27,7 @@ const register = asyncWrapper(async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
-        fullname:fullname, 
+        fullname: fullname, 
         email, 
         password: hashedPassword,
         role: 'USER'
