@@ -7,6 +7,7 @@ const asyncWrapper = require('../../midelware/asyncWrapper');
 
 const register = asyncWrapper(async (req, res, next) => {
     const { fullname, email, password, confirmPassword } = req.body;
+    console.log("RECEIVED BODY:", req.body);
     
     if (password !== confirmPassword) return next(appError.create("Passwords mismatch", 400, httpStatusText.fail));
 
