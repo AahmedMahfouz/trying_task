@@ -8,14 +8,12 @@ const asyncWrapper = require('../../midelware/asyncWrapper');
 const register = asyncWrapper(async (req, res, next) => {
     const { fullname, email, password, confirmPassword } = req.body;
     
-    if (password !== confirmPassword) {
-        return next(appError.create("Passwords mismatch", 400, httpStatusText.fail));
-    }
+    if (password !== confirmPassword) return next(appError.create("Passwords mismatch", 400, httpStatusText.fail));
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
         return next(appError.create(
-            "Password must be at least 8 characters long, include uppercase and lowercase letters, a number, and a special character", 
+            "Password must be at least 8 characters long, include uppercase and lowercase letters, a number, and a special character (@$!%*?&).", 
             400, 
             httpStatusText.fail
         ));
