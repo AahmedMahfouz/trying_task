@@ -4,18 +4,35 @@ const jwt = require('jsonwebtoken');
 const appError = require('../../helpers/appError');
 const httpStatusText = require('../../helpers/httpstatustext');
 const asyncWrapper = require('../../midelware/asyncWrapper');
-const validateEmail = require('deep-email-validator').validate;
+const { validate: validateEmail } = require('deep-email-validator');
 
 const register = asyncWrapper(async (req, res, next) => {
-    if (!req.body || !req.body.password || !req.body.confirmPassword) {
-        return next(appError.create("Please provide password and confirmPassword in the Request Body", 400, httpStatusText.fail));
+    if (!req.body || !req.body.password || !req.body.confirmPassword || !req.body.email) {
+        return next(appError.create("Please provide email, password and confirmPassword in the Request Body", 400, httpStatusText.fail));
     }
 
+    const emailInput = req.body.email.trim();
     const pass = req.body.password.trim();
     const confirmPass = req.body.confirmPassword.trim();
     
     if (pass !== confirmPass) {
         return next(appError.create("Passwords mismatch", 400, httpStatusText.fail));
+    }
+
+    const emailRes = await validateEmail({
+        email: emailInput,
+        validateRegex: true,
+        validateMx: true,           
+        validateSmtp: true,         
+        validateDisposable: true  
+    });
+
+    if (!emailRes.valid) {
+        return next(appError.create(
+            "This email is invalid or does not exist on Gmail servers. Please enter a real email.", 
+            400, 
+            httpStatusText.fail
+        ));
     }
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -27,14 +44,14 @@ const register = asyncWrapper(async (req, res, next) => {
         ));
     }
 
-    const oldUser = await User.findOne({ where: { email: req.body.email } });
+    const oldUser = await User.findOne({ where: { email: emailInput } });
     if (oldUser) return next(appError.create("Email already exists", 400, httpStatusText.fail));
 
     const hashedPassword = await bcrypt.hash(pass, 10);
 
     const newUser = await User.create({
         fullname: req.body.fullname, 
-        email: req.body.email, 
+        email: emailInput, 
         password: hashedPassword,
         role: 'USER'
     });
