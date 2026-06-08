@@ -13,7 +13,7 @@ const register = asyncWrapper(async (req, res, next) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
         return next(appError.create(
-            "Password must be at least 8 characters long, include uppercase and lowercase letters, a number, and a special character (@$!%*?&).", 
+            "Password must be at least 8 characters long, include uppercase and lowercase letters, a number, and a special character (@$!%*?&)", 
             400, 
             httpStatusText.fail
         ));
