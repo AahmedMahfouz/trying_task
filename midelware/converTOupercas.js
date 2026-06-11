@@ -1,6 +1,6 @@
 const convertToUpperCase = (req, res, next) => {
     if (req.body) {
-        const protectedKeys = ['email', 'password', 'confirmPassword'];
+        const protectedKeys = ['email','newPassword', 'password', 'confirmPassword'];
 
         for (let key in req.body) {
             if (protectedKeys.includes(key)) continue;
